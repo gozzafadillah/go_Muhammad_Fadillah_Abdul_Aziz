@@ -6,7 +6,7 @@
 ### Git Version Control
 > Git version control merupakan sebuah fitur version control system (VCS) secara central dan secara terdistribusi.
 ### Git Branch Management
-> Sebuah percabangan yang fungsinya untuk pembuatan entah itu feature atau mantaince yang bertujuan tidak mengganggu cabang (branch) origin / main / master.
+> Sebuah percabangan yang fungsinya untuk pembuatan entah itu feature atau mantaince yang bertujuan tidak mengganggu cabang (branch) origin / main / master.        
 
 ### 3 Poin yang saya dapatkan:
 * Versioning, Merupakan interaksi antara project dengan tim dimana terjadinya sebuah revisi / perubahan. dalam versioning pada git bila ingin merubah versi ke sebelumnya tinggal di ubah dengan "git log --outline" disana kita dapat me reset secara soft atau hard ke versi yang salah atau tidak kepakai.
