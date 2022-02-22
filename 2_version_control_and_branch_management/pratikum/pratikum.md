@@ -21,3 +21,7 @@ disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran section 2
 * ## git stash
 > Memindahkan code yang saya buat \\
 ![Screen shot git](../screenshot/5_add_git_stash.png)
+
+hello\world
+hello\ world
+hello/ world
