@@ -34,7 +34,7 @@ disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran section 2
 * ## git conflict
 > Contoh conflict saat pratikum 
 ![Screen shot git](../screenshot/8_conflict.png) <br /><br />
-> saya menggunakan github dekstop dan terdekteksi conflict seperti diatas. Dan saya solve this problem like video tutorial di LMS alta
+> saya menggunakan github dekstop dan terdekteksi conflict seperti diatas. Dan saya solve this problem like video tutorial di LMS alta <br /><br />
 ![Screen shot git](../screenshot/8_conflict_solve.png) <br /><br />
 
 
