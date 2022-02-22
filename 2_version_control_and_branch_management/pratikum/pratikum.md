@@ -1,4 +1,4 @@
-# Pratikum Github
+# Pratikum Git version control and branch management
 
 Disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran saya di section 2.<br />
  [Repo 1]: https://github.com/gozzafadillah/pratikum_section_2 "link repository latihan saya"
