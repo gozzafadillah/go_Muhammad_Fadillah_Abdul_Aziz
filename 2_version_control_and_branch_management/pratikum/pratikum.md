@@ -1,6 +1,7 @@
 # Pratikum Github
 
-Disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran saya di section 2.
+Disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran saya di section 2.<br />
+ [Repo 1]: https://github.com/gozzafadillah/pratikum_section_2 "link repository latihan saya"
 
 * ## git clone
 > ```git clone <clone-link> ```  clone repo github saya ke local <br /><br />
