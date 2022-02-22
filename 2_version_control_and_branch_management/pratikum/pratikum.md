@@ -38,6 +38,11 @@ Disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran saya di se
 > saya menggunakan github dekstop dan terdekteksi conflict seperti diatas. Dan saya solve this problem like video tutorial di LMS alta <br /><br />
 ![Screen shot git](../screenshot/8_conflict_solve.png) <br /><br />
 
+* ## git graph final
+> Hasil branch saya pada praktikum section 2
+![Screen shot git](../screenshot/final_git_graph.png) <br /><br />
+
+
 
 
 
