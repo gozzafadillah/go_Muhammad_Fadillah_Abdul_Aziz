@@ -28,7 +28,7 @@ disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran section 2
 
 * ## git branch
 > ``` git branch <nama-branch> ``` membuat branch pada local <br /><br />
-![Screen shot git](../screenshot/7_git_branch.png) <br /><br />
+![Screen shot git](../screenshot/7_git_branch_list.png) <br /><br />
 > bila ingin memindahkan branch dari local ke repository tambah ``` git push -u origin <nama-branch> ```
 
 * ## git conflict
