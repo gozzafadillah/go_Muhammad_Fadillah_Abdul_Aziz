@@ -15,7 +15,7 @@ disini kumpulan code dan foto hasil Screenshot penerapan pembelajaran section 2
 ![Screen shot git](../screenshot/3_git_commit_with_massege.png)
 
 * ## git push
-> ``` git push origin ```push dari branch local ke repository github \\
+> ``` git push origin ```push dari branch local ke repository github <br />
 ![Screen shot git](../screenshot/4_git_push.png)
 
 * ## git stash
