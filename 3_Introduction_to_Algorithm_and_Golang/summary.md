@@ -53,3 +53,17 @@ Contoh tugas flowchart yang saya kerjakan
 
 !['gambar-flowchart'](./screenshot/flowchart_problem_2.png)
 
+## Tambahan hasil penyelesaian praktikum
+
+### install go
+> saya menginstall langsung golang exe version gol.17.6 dari go.dev
+<br/>
+
+!['gambar-praktikum-problem-3'](./screenshot/problem_3_install_go.png)
+
+### hello world
+> me-run dan me-build problem_4_hello_world.go
+<br/>
+
+!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_build.png.png)
+!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_output.png.png.png)
