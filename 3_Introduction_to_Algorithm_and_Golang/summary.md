@@ -65,5 +65,5 @@ Contoh tugas flowchart yang saya kerjakan
 > me-run dan me-build problem_4_hello_world.go
 <br/>
 
-!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_build.png.png)
-!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_output.png.png.png)
+!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_build.png)
+!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_output.png)
