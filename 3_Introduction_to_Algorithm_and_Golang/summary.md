@@ -47,8 +47,8 @@ Contoh tugas flowchart yang saya kerjakan
 <br/><br/>
 * Flowchart bilangan prima
 
-!["gambar-flowchart"](./screenshot/flowchart problem 1.png)
+!['gambar-flowchart'](./screenshot/flowchart_problem_1.png)
 * Flowchart lampu dan tombol
 
-!["gambar-flowchart"](./screenshot/flowchart problem 1.png)
+!['gambar-flowchart'](./screenshot/flowchart_problem_2.png)
 
