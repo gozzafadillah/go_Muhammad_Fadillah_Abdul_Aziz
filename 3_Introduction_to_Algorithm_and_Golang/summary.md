@@ -66,6 +66,6 @@ Contoh tugas flowchart yang saya kerjakan
 <br/>
 
 * setelah go run
-!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_output.png)
+!['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_output.png) <br/><br/>
 * setelah go build 
 !['gambar-praktikum-problem-3'](./screenshot/problem_4_hello_world_build.png)
