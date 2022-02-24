@@ -53,12 +53,12 @@
 * long
 
  1. ```go
-    var age int```
+    var age int ```
 2. ```go
-    var age int = 21
- go```
+    var age int = 21 ```
 3. ```go
     var age, height int ```
+
 4. ```go
     var age, height int = 21, 165 ```
 
