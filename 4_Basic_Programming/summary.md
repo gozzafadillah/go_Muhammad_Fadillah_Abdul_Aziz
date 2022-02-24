@@ -53,23 +53,20 @@
 * long
 
  1. ```go
-    var age int
- go```
+    var age int```
 2. ```go
     var age int = 21
  go```
 3. ```go
-    var age, height int 
- go```
+    var age, height int ```
 4. ```go
-    var age, height int = 21, 165
- go```
+    var age, height int = 21, 165 ```
 
 * short
 
 1. ```go 
     age := 21
-    go```
+    ```
 
 ### Zero value
 > saat dideklarasikan seperti ini
@@ -86,7 +83,7 @@
 ### const 
 > Const, seperti variable yang membedakannya bila telah dideklarasikan maka tidak dapat diubah kembali.
 > Contoh ada 2 :
-* Single : ```go  const pi = 3,14 go```
+* Single : ```go  const pi = 3,14 ```
 * Multiple 
 ```go
  const pi = 3,14 
