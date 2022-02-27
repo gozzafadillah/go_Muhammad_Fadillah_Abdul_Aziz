@@ -10,7 +10,7 @@ func primeNumber(n float64) bool {
 	var condition bool = true
 	max_divisor := math.Floor(math.Sqrt(n))
 	toInt := int(n)
-
+	// Jika n == 1 bukan prima
 	if n == 1 {
 		condition = false
 	}
