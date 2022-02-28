@@ -37,14 +37,14 @@
 2. Dengan Parameter
 ```go
     func tambah(x,y int){
-        var tambah = x + y
+        tambah := x + y
         fmt.Println("Hasil tambah :",tambah)
     }
 ```
 3. Mengembalikan nilai
 ```go
     func tambah(x,y int)int {
-        var tambah = x + y
+        tambah := x + y
         return tambah
     }
 ```
