@@ -33,5 +33,8 @@ func angkaMunculSekali(angka string) []int {
 }
 
 func main() {
-	fmt.Println(angkaMunculSekali("1123982"))
+	var listAngka string
+	fmt.Print("List Angka dimasukan masukan (contoh [12345]) : ")
+	fmt.Scanf("%s", &listAngka)
+	fmt.Println("list angka yang muncul sekali : ", angkaMunculSekali(listAngka))
 }
