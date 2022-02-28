@@ -9,7 +9,6 @@ func tersedia(arr []string, n string) bool {
 			return true
 		}
 	}
-
 	return false
 }
 
