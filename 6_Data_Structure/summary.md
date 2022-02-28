@@ -31,7 +31,7 @@
 1. Tanpa Parameter
 ```go
     func helloWorld() {
-
+        // Statement
     }
 ```
 2. Dengan Parameter
