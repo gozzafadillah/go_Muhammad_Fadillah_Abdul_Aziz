@@ -31,4 +31,5 @@ func pairSum(arr []int, target int) []int {
 func main() {
 	fmt.Println(pairSum([]int{1, 2, 3, 4, 6}, 6))
 	fmt.Println(pairSum([]int{2, 5, 9, 11}, 11))
+	fmt.Println(pairSum([]int{25, 25, 50, 50}, 100))
 }
