@@ -4,7 +4,24 @@ import (
 	"fmt"
 )
 
+// Cara minimalis
 func pow(base, kuadrat int) int {
+	var hasil int = 1
+	i := 0
+	for i < kuadrat {
+		if kuadrat%2 == 1 {
+			hasil *= base
+		}
+		kuadrat /= 2
+		base *= base
+	}
+
+	return hasil
+
+}
+
+// Cara hardcore
+func pow2(base, kuadrat int) int {
 	// variable
 	var y int = 1
 	var hasil int = 1
