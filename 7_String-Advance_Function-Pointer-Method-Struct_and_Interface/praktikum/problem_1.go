@@ -6,34 +6,27 @@ import (
 )
 
 func Compare(a, b string) string {
-	var hasil string
 
-	// Cek  panjang dari kedua string lalu cek apakah ada yang sama
-	// Jika true
-	if len(a) > len(b) && strings.Contains(a, b) {
-		for i, _ := range b {
-			for j, _ := range a {
-				// cek string satu per satu apakah adayang sama
-				if strings.Contains(a[j:], b[i:]) {
-					hasil = b
-				}
-			}
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Print(err)
 		}
-	} else if len(a) < len(b) && strings.Contains(b, a) {
-		for i, _ := range b {
-			for j, _ := range a {
-				// cek string satu per satu apakah adayang sama
-				if strings.Contains(b[i:], a[j:]) {
-					hasil = a
-				}
-			}
-		}
-		// jika false
+	}()
+
+	if len(b) > len(a) {
+		a, b = b, a
+	}
+	cekA := strings.Contains(a, b)
+	cekB := strings.Contains(b, a)
+
+	if cekA {
+		return b
+	} else if cekB {
+		return a
 	} else {
-		return "tidak ramah match"
+		panic("Not found!")
 	}
 
-	return hasil
 }
 
 func main() {
