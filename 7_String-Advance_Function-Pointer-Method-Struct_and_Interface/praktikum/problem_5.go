@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 type Student struct {
@@ -10,6 +9,7 @@ type Student struct {
 	score []int
 }
 
+// Method
 func (s Student) average() float64 {
 	var hasil float64
 	// Loop seluruh data score
@@ -39,7 +39,24 @@ func (s Student) min() (min int, name string) {
 	}
 
 	// sort slice isi
-	sort.Ints(isi)
+	// Menggunakan package sort
+	// sort.Ints(isi)
+
+	// sort manual
+	var isDone = false
+	// Sort asc
+	for !isDone {
+		isDone = true
+		var i = 0
+		for i < len(isi)-1 {
+			if isi[i] > isi[i+1] {
+				isi[i], isi[i+1] = isi[i+1], isi[i]
+				isDone = false
+			}
+			i++
+		}
+	}
+
 	// mencari data minimal
 	for keys, value := range data {
 		if value == isi[0] {
@@ -65,8 +82,24 @@ func (s Student) max() (max int, name string) {
 	for _, value := range data {
 		isi = append(isi, value)
 	}
-	// sort slice isi
-	sort.Ints(isi)
+	// // sort slice isi
+	// sort.Ints(isi)
+
+	// sort manual
+	var isDone = false
+	// Sort asc
+	for !isDone {
+		isDone = true
+		var i = 0
+		for i < len(isi)-1 {
+			if isi[i] > isi[i+1] {
+				isi[i], isi[i+1] = isi[i+1], isi[i]
+				isDone = false
+			}
+			i++
+		}
+	}
+
 	// Mencari data max
 	for keys, value := range data {
 		if value == isi[len(data)-1] {
@@ -81,7 +114,7 @@ func (s Student) max() (max int, name string) {
 func main() {
 	var a = Student{}
 
-	for i := 0; i < 6; i++ {
+	for i := 0; i < 3; i++ {
 		var name string
 		fmt.Print("input ", i+1, " student name :")
 		fmt.Scan(&name)
