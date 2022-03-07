@@ -7,22 +7,20 @@ import (
 
 func primeNumber(n float64) bool {
 	// variable
-	var condition bool = true
 	max_divisor := math.Floor(math.Sqrt(n))
 	toInt := int(n)
 	// Jika n == 1 bukan prima
 	if n == 1 {
-		condition = false
+		return false
 	}
 	for i := 2; i <= int(max_divisor); i++ {
 		if toInt%i == 0 {
-			condition = false
-		} else {
-			condition = true
+			return false
 		}
 	}
-	return condition
+	return true
 }
+
 func main() {
 	number := 0.0
 	hasil := ""
