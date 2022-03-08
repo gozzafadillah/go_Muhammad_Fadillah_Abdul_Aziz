@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func Caesar(offset int, input string) string {
@@ -13,7 +12,7 @@ func Caesar(offset int, input string) string {
 		// bila lowercase
 		temp = ((value + rune(offset) - 97) % 26) + 97
 		// Output
-		output += strconv.QuoteRune(temp)
+		output += string(temp)
 	}
 
 	return output
