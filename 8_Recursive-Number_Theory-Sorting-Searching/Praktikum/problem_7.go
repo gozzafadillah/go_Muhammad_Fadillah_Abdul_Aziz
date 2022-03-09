@@ -28,7 +28,8 @@ func playDomino(cards [][]int, deck []int) interface{} {
 		return total
 
 	} else {
-		return "tutup kartu"
+		return "Tutup Kartu"
+
 	}
 }
 
