@@ -1,33 +1,38 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func playDomino(cards [][]int, deck []int) {
+func playDomino(cards [][]int, deck []int) interface{} {
 	hasil := [][]int{}
-	sum := 0
 
 	for i := 0; i <= len(cards)-1; i++ {
-		counter := 0
-		for j := 0; j <= len(deck)-1; j++ {
-			if cards[i][counter] == deck[j] {
-				hasil = append(hasil, cards[i:][counter:]...)
-				sum += cards[i][j]
-			}
+		if cards[i][0] == deck[0] || cards[i][0] == deck[1] || cards[i][1] == deck[0] || cards[i][1] == deck[1] {
+			hasil = append(hasil, cards[i])
 		}
-		counter++
-		if counter > len(deck)-1 {
-			counter = 0
-		}
+
 	}
+	if len(hasil) >= 2 {
+		var total int
+		var index int
+		var output []int
+		var max int
+		for i := 0; i < len(hasil); i++ {
+			total = hasil[i][0] + hasil[i][1]
+			if max <= total {
+				total = max
+				index = i
+			}
+			output = append(output, hasil[index]...)
+			return output
+		}
+		return total
 
-	fmt.Println(sum)
-	fmt.Println(hasil)
-
+	} else {
+		return "tutup kartu"
+	}
 }
 
 func main() {
-	playDomino([][]int{[]int{6, 5}, []int{3, 4}, []int{3, 3}}, []int{4, 3})
-	playDomino([][]int{[]int{6, 5}, []int{3, 3}, []int{3, 4}}, []int{3, 6})
+	fmt.Println(playDomino([][]int{[]int{6, 5}, []int{3, 4}, []int{3, 3}}, []int{4, 3}))
+	fmt.Println(playDomino([][]int{[]int{6, 5}, []int{3, 3}, []int{3, 4}}, []int{3, 6}))
 }
