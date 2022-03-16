@@ -2,7 +2,6 @@ package main
 
 // Root struct
 type kendaraan struct {
-	totalRoda       int
 	kecepatanPerJam int
 }
 
