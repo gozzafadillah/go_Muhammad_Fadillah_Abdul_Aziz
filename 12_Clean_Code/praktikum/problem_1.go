@@ -1,6 +1,6 @@
 package main
 
-type user struct {
+type user struct { // struct awali Uppercase
 	id       int
 	username int // username int ??
 	password int

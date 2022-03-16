@@ -1,7 +1,7 @@
 package main
 
 // Root struct
-type kendaraan struct {
+type Kendaraan struct {
 	kecepatanPerJam int
 }
 
