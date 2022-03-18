@@ -11,21 +11,18 @@ INSERT INTO operators VALUES (
 ),(
     '5','Axis', NOW(), NOW()
 );
-
 -- b. Insert product type
 INSERT INTO product_type VALUES 
     ('1', 'Pulsa', NOW(), NOW()),
     ('2', 'Paket Data', NOW(), NOW()),
     ('3', 'Token Listrik', NOW(), NOW())
 ;
-
 -- c. Insert 2 product ; type id = 1 ; operator id = 3
 INSERT INTO product VALUES (
     '1', '1', '3', 'XL001', 'Pulsa 10.000', 1, NOW(), NOW()
 ),(
     '2', '1', '3', 'XL002', 'Pulsa 20.000', 1, NOW(), NOW()
 );
-
 -- d. insert 3 product ; type id = 2 ; operator id = 1
 INSERT INTO product VALUES (
     '3', '2', '1', 'TL001', 'Paket Data 1,5 GB', 1, NOW(), NOW()
@@ -34,7 +31,6 @@ INSERT INTO product VALUES (
 ),(
     '5', '2', '1', 'TL003', 'Paket Data 4 GB', 1, NOW(), NOW()
 );
-
 -- d. insert 3 product ; type id = 3 ; operator id = 4
 INSERT INTO product VALUES (
     '6', '3', '4', 'TL001', 'Token Listrik 100rb', 1, NOW(), NOW()
@@ -43,7 +39,6 @@ INSERT INTO product VALUES (
 ),(
     '8', '3', '4', 'TL003', 'Token Listrik 300rb', 1, NOW(), NOW()
 );
-
 -- e. Insert Product description pada semua product
 INSERT INTO product_description values (
     '1', 'Pulsa Rp10.000 RB', NOW(), NOW()
@@ -62,7 +57,6 @@ INSERT INTO product_description values (
 ),(
     '8', 'Token Listrik untuk 285 kwh', NOW(), NOW()
 );
-
 -- f. Insert 3 payment method
 INSERT INTO payment_method VALUES (
     '1', "Dana", 1, NOW(), NOW()
@@ -71,7 +65,6 @@ INSERT INTO payment_method VALUES (
 ),(
     '3', 'ShopePay', 1, NOW(),NOW()
 );
-
 -- g. Insert 5 User pada table user
 INSERT INTO users VALUES(
     '1', 1, "2000-03-09","L",NOW(),NOW()
@@ -84,7 +77,6 @@ INSERT INTO users VALUES(
 ),(
     '5', 1, "1990-01-09","L",NOW(),NOW()
 );
-
 -- h. Insert 3 Transaksi dimasing-masing user
 INSERT INTO transaction VALUES(
     '1', '1', '2', 'Belum Bayar', 1, 20000, NOW(), NOW()
@@ -117,7 +109,6 @@ INSERT INTO transaction VALUES(
 ),(
     '15', '5', '2', 'Sudah Bayar', 2, 50000, NOW(), NOW()
 );
-
 -- i. Insert 3 product di masing-masing transaksi
 INSERT INTO transaction_detail VALUES (
     '2','1', "Belum Bayar", 1, 20000, NOW(),NOW()       
@@ -183,17 +174,21 @@ DELETE FROM product WHERE product_type = 1;
 SELECT * FROM transaction WHERE user_id = 1 
 UNION 
 SELECT * FROM transaction WHERE user_id = 2;
+
 -- 2. Tampilkan Jumlah harga transaksi user id 1
 SELECT sum(total_price) as `Total harga user id = 1` FROM transaction WHERE user_id = 1;
+
 -- 3.Tampilkan total transaksi dengan product type = 2
 SELECT COUNT(*) FROM product
 JOIN transaction_detail
 ON transaction_detail.product_id = product.id
 WHERE product.product_type_id = 2;
+
 -- 4. Tampilkan semua field tablle product dan field name table product type yang saling berhubungan
 SELECT * FROM product
 INNER JOIN product_type
 ON product.product_type_id = product_type.id;
+
 -- 5. Tampilkan semua field table transaction, field name table product dan field name table user.
 SELECT product.name, transaction.*, users.nama  FROM transaction
 INNER JOIN transaction_detail 
@@ -202,9 +197,29 @@ INNER JOIN product
 ON transaction_detail.product_id = product.id
 INNER JOIN users
 ON transaction.user_id = users.id;
+
 -- 6. buat function setelah data transaksi dihapus maka transaction detail terhapus juga dengan transaction id yang dimaksud.
-
+DELIMITER $$
+CREATE TRIGGER deleteTransaction
+BEFORE DELETE ON transaction FOR EACH ROW 
+BEGIN 
+DELETE FROM transaction_detail WHERE transaction_id = old.id;
+END $$
+DELIMITER ;
 -- 7. buat function setelah data transaksi detail dihapus maka data total_qty terupdate berdasarkan qty data transaction id yang dihapus
-
+DELIMITER $$
+CREATE TRIGGER qtyDataTransaction
+BEFORE DELETE ON transaction_detail FOR EACH ROW 
+BEGIN 
+UPDATE transaction SET total_qty = total_qty - old.qty
+WHERE id = old.transaction_id;
+END $$
+DELIMITER;
 -- 8. tampilkan data product yang tidak pernah ada ditable transaction_detail dengan sub-query
-
+SELECT *
+FROM product
+WHERE id NOT IN (
+    SELECT product_id
+    FROM transaction_detail
+    WHERE product_id = id
+);
