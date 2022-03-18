@@ -195,7 +195,7 @@ SELECT * FROM product
 INNER JOIN product_type
 ON product.product_type_id = product_type.id;
 -- 5. Tampilkan semua field table transaction, field name table product dan field name table user.
-SELECT product.name, transaction.*, users.name  FROM transaction
+SELECT product.name, transaction.*, users.nama  FROM transaction
 INNER JOIN transaction_detail 
 ON transaction_detail.transaction_id = transaction.id
 INNER JOIN product 
