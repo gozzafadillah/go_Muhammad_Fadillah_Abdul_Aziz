@@ -123,6 +123,7 @@ db.Books.aggregate([
         $group:{
             _id : {$concat : ["$author.firstName", " ", "$author.lastName"]},
             number_of_books : {$sum: 1},
+            list_of_books :  {$push : {$concat : ["$title", " (", "$publisher.publisherName", ")"] }}
         } 
     }
 ])
