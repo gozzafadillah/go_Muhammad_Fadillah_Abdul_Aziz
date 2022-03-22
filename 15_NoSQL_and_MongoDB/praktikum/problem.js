@@ -8,7 +8,7 @@ db.createCollection('transaction')
 db.createCollection('payment_methods')
 db.createCollection('users')
 
-1. Insert
+// 1. Insert
 // -- Insert 5 operators
 db.operators.insert({_id: 1,name:"Telkomsel", created_at: ISODate("2022-03-19T01:29:29.965Z"), updated_at:ISODate("2022-03-19T01:29:29.965Z")})
 db.operators.insert({_id: 2,name:"XL", created_at: ISODate("2022-03-19T01:29:29.965Z"), updated_at:ISODate("2022-03-19T01:29:29.965Z")})
@@ -291,7 +291,7 @@ db.transaction_detail.insert({
     updated_at: ISODate("2022-03-19T01:29:29.965Z") 
 })
 db.transaction_detail.insert({
-    _id:3
+    _id:3,
     transaction_id: 3,
     product_id: 1,
     status: "Belum Bayar",
@@ -421,27 +421,27 @@ db.transaction_detail.insert({
     updated_at: ISODate("2022-03-19T01:29:29.965Z") 
 })
 
-2. Read
-a. tampilkan nama users yang gender : "L"
+// 2. Read
+// a. tampilkan nama users yang gender : "L"
 db.users.find({gender:"L"})
 
-b. tampilkan product dengan id = 3
+// b. tampilkan product dengan id = 3
 db.product.find({_id: 3}).pretty()
 
-c. Hitung jumlah user / pelanggan dengan status gender perempuan
+// c. Hitung jumlah user / pelanggan dengan status gender perempuan
 db.users.find({gender:"P"}).count()
 
-d. tampilkan data users sesuai abjad (ASC)
+// d. tampilkan data users sesuai abjad (ASC)
 db.users.find().sort({name:1})
 
-e. tampilkan 5 data product
+// e. tampilkan 5 data product
 db.product.find().limit(5)
 
-3. Update 
-a. ubah nama product id 1 jadi "product dummy"
+// 3. Update 
+// a. ubah nama product id 1 jadi "product dummy"
 db.product.update({_id:1}, {_id: 1,product_type_id: 1, operator_id: 3, code: "PTL-100", name: "Product Dummy", status:1, created_at: ISODate("2022-03-19T01:29:29.965Z"), updated_at: ISODate("2022-03-19T01:29:29.965Z")})
 
-b. ubah qty = 3 pada transaction detail = 1
+// b. ubah qty = 3 pada transaction detail = 1
 db.transaction_detail.update({_id:1}, {
     transaction_id: 1,
     product_id: 3,
@@ -452,9 +452,9 @@ db.transaction_detail.update({_id:1}, {
     updated_at: ISODate("2022-03-19T01:29:29.965Z") 
 })
 
-4. Delete
-a. Delete data pada product id 1
+// 4. Delete
+// a. Delete data pada product id 1
 db.product.remove({_id:1})
 
-b. Delete pada product dengan product_type = 1
+// b. Delete pada product dengan product_type = 1
 db.product.remove({product_type_id:1})
