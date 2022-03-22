@@ -1,22 +1,3 @@
-// use library
-
-db.Books.insert([{_id:1, title: "Wawasan Pancasila", authorID: 1, publisherID: 1, price:
-71200, stats: {page: 324, weight: 300}, publishedAt: new Date("2018-10-01"),
-category: ["social", "politics"]},
-{_id: 2, title: "Mata Air Keteladanan", authorID: 1, publisherID: 2, price:
-106250, stats: {page: 672, weight: 650}, publishedAt: new
-Date("2017-09-01"), category: ["social", "politics"]},
-{ _id: 3, title: "Revolusi Pancasila", authorID: 1, publisherID: 1, price:
-54400, stats: {page: 220, weight: 500}, publishedAt: new Date("2015-05-01"),
-category: ["social", "politics"]},
-{_id: 4, title: "Self Driving", authorID: 2, publisherID: 1, price: 58650,
-stats: {page: 286, weight: 300}, publishedAt: new Date("2018-05-01"),
-category: ["self-development"]},
-{_id: 5, title: "Self Disruption", authorID: 2, publisherID: 2, price:
-83300, stats: {page: 400, weight: 800}, publishedAt: new Date("2018-05-01"),
-category: ["self-development"]}])
-
-
 // -- 1. Menampilkan data Books dari Authors id = 1 dan id = 2
 db.Books.find({authorid:{$ne: [1, 2]} }).pretty()
 
@@ -60,40 +41,6 @@ db.Books.aggregate([
 ])
 
 // -- 6. Tampilkan summary data Authors, Books, dan Publisher sesuai dengan Output
-
-db.Books.aggregate([
-  {
-    $lookup: {
-      from: "Authors",
-      localField: "authorID",
-      foreignField: "_id",
-      as: "author"
-    }
-  },
-  {
-  $unwind: "$author"
-  },
-  {
-    $lookup: {
-      from: "Publishers",
-      localField: "publisherID",
-      foreignField: "_id",
-      as: "publishers"
-    }
-  },
-  {
-  $unwind: "$publishers"
-  },
-  {
-    $group: {
-      _id: {$concat:["$author.firstName", " ", "$author.lastName"]},
-      number_of_books : {$sum: 1},
-      publisher : "$publishers.publisherName",
-    }
-  }
-])
-
-
 db.Books.aggregate([
 
     // Join with Author table
