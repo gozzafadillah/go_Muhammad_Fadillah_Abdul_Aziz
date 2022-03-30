@@ -10,76 +10,76 @@ import (
 )
 
 var (
-	users []model.User
+	books []model.Book
 )
 
 // Controller
-func GetUsersController(e echo.Context) error {
-	if err := config.DB.Find(&users).Error; err != nil {
+func GetBooksController(e echo.Context) error {
+	if err := config.DB.Find(&books).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return e.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success get all users",
-		"users":   users,
+		"message": "Success get all book",
+		"books":   books,
 	})
 }
 
-func GetUserController(e echo.Context) error {
+func GetBookController(e echo.Context) error {
 	getId, _ := strconv.Atoi(e.Param("id"))
-	user := model.User{}
+	book := model.Book{}
 
-	queryData := config.DB.Where("id = ?", getId).Find(&user)
+	queryData := config.DB.Where("id = ?", getId).Find(&book)
 	if err := queryData.Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return e.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success get user",
-		"user":    user,
+		"message": "Success get book by id",
+		"book":    book,
 	})
 }
 
-func DeleteUserController(e echo.Context) error {
-	ID, _ := strconv.Atoi(e.Param("id"))
+func DeleteBookController(e echo.Context) error {
+	getId, _ := strconv.Atoi(e.Param("id"))
 
-	if err := config.DB.Unscoped().Delete(&model.User{}, ID).Error; err != nil {
+	if err := config.DB.Unscoped().Delete(&model.Book{}, getId).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success Delete User",
+		"message": "Success Delete Book",
 	})
 }
 
-func UpdateUserController(c echo.Context) error {
+func UpdateBookController(c echo.Context) error {
 	// your solution here
-	user := model.User{}
-	c.Bind(&user)
+	book := model.Book{}
+	c.Bind(&book)
 
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	queryData := config.DB.Model(&user).Where("id = ?", id).Updates(map[string]interface{}{"id": id, "name": user.Name, "email": user.Email, "password": user.Password})
+	queryData := config.DB.Model(&book).Where("id = ?", id).Updates(map[string]interface{}{"id": id, "title": book.Title, "author": book.Author, "publisher": book.Publisher})
 	if err := queryData.Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success Edit User",
-		"users":   user,
+		"message": "Success Edit Book",
+		"book":    book,
 	})
 }
 
-func CreateUserController(e echo.Context) error {
+func CreateBookController(e echo.Context) error {
 
-	user := model.User{}
-	e.Bind(&user)
+	book := model.Book{}
+	e.Bind(&book)
 
-	if err := config.DB.Save(&user).Error; err != nil {
+	if err := config.DB.Save(&book).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success add user",
-		"user":    user,
+		"book":    book,
 	})
 }

@@ -8,12 +8,19 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 
-	// route
+	// route user
 	e.GET("/users", controller.GetUsersController)
-	e.GET("/user/:id", controller.GetUserController)
-	e.DELETE("/user/:id", controller.DeleteUserController)
+	e.GET("/users/:id", controller.GetUserController)
+	e.DELETE("/users/:id", controller.DeleteUserController)
 	e.POST("/users", controller.CreateUserController)
-	e.PUT("/user/:id", controller.UpdateUserController)
+	e.PUT("/users/:id", controller.UpdateUserController)
+
+	// route book
+	e.GET("/books", controller.GetBooksController)
+	e.GET("/books/:id", controller.GetBookController)
+	e.DELETE("/books/:id", controller.DeleteBookController)
+	e.POST("/books", controller.CreateBookController)
+	e.PUT("/books/:id", controller.UpdateBookController)
 
 	return e
 }
