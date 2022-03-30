@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/model"
+	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -30,5 +30,5 @@ func initDB() {
 }
 
 func initMigrate() {
-	DB.AutoMigrate(&model.User{}, &model.Book{})
+	DB.AutoMigrate(&models.User{}, &models.Book{})
 }

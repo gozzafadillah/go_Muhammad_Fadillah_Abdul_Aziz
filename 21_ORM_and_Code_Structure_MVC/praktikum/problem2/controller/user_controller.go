@@ -4,82 +4,86 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/config"
-	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/model"
+	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/lib/database"
+	"github.com/gozzafadillah/21_ORM_and_Code_Structure_MVC/praktikum/problem2/models"
 	"github.com/labstack/echo/v4"
 )
 
-var (
-	users []model.User
-)
-
 // Controller
-func GetUsersController(e echo.Context) error {
-	if err := config.DB.Find(&users).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+func GetUsersController(c echo.Context) error {
+	users, e := database.GetUsers()
+
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
-	return e.JSON(http.StatusOK, map[string]interface{}{
+	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success get all users",
 		"users":   users,
 	})
 }
 
-func GetUserController(e echo.Context) error {
-	getId, _ := strconv.Atoi(e.Param("id"))
-	user := model.User{}
+func GetUserController(c echo.Context) error {
+	getId, _ := strconv.Atoi(c.Param("id"))
+	user, e := database.GetUser(getId)
 
-	queryData := config.DB.Where("id = ?", getId).Find(&user)
-	if err := queryData.Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+	}
+	if len(user) == 0 {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "User not found",
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success get user",
+		"user":    user,
+	})
+
+}
+
+func CreateUserController(c echo.Context) error {
+	temp := models.User{}
+
+	c.Bind(&temp)
+
+	user, e := database.CreateUser(temp)
+
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
-	return e.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success get user",
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success add user",
 		"user":    user,
 	})
 }
 
-func DeleteUserController(e echo.Context) error {
-	ID, _ := strconv.Atoi(e.Param("id"))
+func DeleteUserController(c echo.Context) error {
+	getId, _ := strconv.Atoi(c.Param("id"))
+	user, e := database.DeleteUser(getId)
 
-	if err := config.DB.Unscoped().Delete(&model.User{}, ID).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
-	return e.JSON(http.StatusOK, map[string]interface{}{
+	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Delete User",
+		"user":    user,
 	})
 }
 
 func UpdateUserController(c echo.Context) error {
-	// your solution here
-	user := model.User{}
-	c.Bind(&user)
+	temp := models.User{}
+	getId, _ := strconv.Atoi(c.Param("id"))
+	c.Bind(&temp)
+	user, e := database.UpdateUser(getId, temp)
 
-	id, _ := strconv.Atoi(c.Param("id"))
-
-	queryData := config.DB.Model(&user).Where("id = ?", id).Updates(map[string]interface{}{"id": id, "name": user.Name, "email": user.Email, "password": user.Password})
-	if err := queryData.Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Edit User",
 		"users":   user,
-	})
-}
-
-func CreateUserController(e echo.Context) error {
-
-	user := model.User{}
-	e.Bind(&user)
-
-	if err := config.DB.Save(&user).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-	return e.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success add user",
-		"user":    user,
 	})
 }
