@@ -19,9 +19,6 @@ func GetUsers() ([]models.User, error) {
 func GetUser(id int) ([]models.User, error) {
 	var user []models.User
 	queryData := config.DB.Where("id = ?", id).Find(&user)
-	if queryData.RowsAffected == 1 {
-		return nil, errors.New("user not found")
-	}
 	if e := queryData.Error; e != nil {
 		return nil, e
 	}
