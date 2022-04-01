@@ -15,11 +15,12 @@ func New() *echo.Echo {
 	m.LogMiddlewares(e)
 	m.TrailingMiddleware(e)
 
-	// create user
-	e.POST("/users", controller.CreateUserController)
+	// route user
+	e.GET("/users", controller.CreateUserController)
 
-	// create book
-	e.POST("/books", controller.CreateBookController)
+	// route book
+	e.GET("/books", controller.GetBooksController)
+	e.GET("/books/:id", controller.GetBookController)
 
 	// login
 	e.POST("/login", controller.LoginUserController)
@@ -29,18 +30,17 @@ func New() *echo.Echo {
 	// eAuthBasic.Use(middleware.BasicAuth(m.AuthMiddlewareDB))
 	// eAuthBasic.GET("/users", controller.GetUsersController)
 
-	// JWT user
 	eJWT := e.Group("")
 	eJWT.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 
+	// JWT user
 	eJWT.GET("/users", controller.GetUsersController)
 	eJWT.GET("/users/:id", controller.GetUserController)
 	eJWT.DELETE("/users/:id", controller.DeleteUserController)
 	eJWT.PUT("/users/:id", controller.UpdateUserController)
 
 	// JWT book
-	eJWT.GET("/books", controller.GetBooksController)
-	eJWT.GET("/books/:id", controller.GetBookController)
+	eJWT.POST("/books/:id", controller.CreateBookController)
 	eJWT.DELETE("/books/:id", controller.DeleteBookController)
 	eJWT.PUT("/books/:id", controller.UpdateBookController)
 
