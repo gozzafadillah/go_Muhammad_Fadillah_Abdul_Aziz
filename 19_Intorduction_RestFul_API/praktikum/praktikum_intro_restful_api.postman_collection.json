@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "517fe14c-010d-4761-b328-d85e808cdd5d",
+		"name": "praktikum_intro_restful_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "newsapi.org",
+			"item": [
+				{
+					"name": "newsapi.org_request_1",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{apiKey}}",
+								"in": "query",
+								"key": "apiKey"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseUrl}}/v2/top-headlines?q=Covid&country=id",
+							"protocol": "https",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"top-headlines"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2022-03-24",
+									"disabled": true
+								},
+								{
+									"key": "apiKey",
+									"value": "{{apiKey}}",
+									"disabled": true
+								},
+								{
+									"key": "q",
+									"value": "Covid"
+								},
+								{
+									"key": "country",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newsapi.org_request_2",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{apiKey}}",
+								"in": "query",
+								"key": "apiKey"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseUrl}}/v2/top-headlines?q=motogp&country=id",
+							"protocol": "https",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"top-headlines"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "motogp"
+								},
+								{
+									"key": "country",
+									"value": "id"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newsapi.org_request_3",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{apiKey}}",
+								"in": "query",
+								"key": "apiKey"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseUrl}}/v2/top-headlines?sources=cnn",
+							"protocol": "https",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"top-headlines"
+							],
+							"query": [
+								{
+									"key": "sources",
+									"value": "cnn"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newsapi.org.request_4",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{apiKey}}",
+								"in": "query",
+								"key": "apiKey"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "57375e2fbf454a6481c64848a2a2562d",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{baseUrl}}/v2/everything?q=kampus merdeka",
+							"protocol": "https",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"everything"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "kampus merdeka"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newsapi.org_request_5",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{apiKey}}",
+								"in": "query",
+								"key": "apiKey"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "57375e2fbf454a6481c64848a2a2562d",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{baseUrl}}/v2/top-headlines/sources?language=ru",
+							"protocol": "https",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"top-headlines",
+								"sources"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "ru"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "swapi.dev",
+			"item": [
+				{
+					"name": "swapi.dev_request_1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://swapi.dev/api/planets/5",
+							"protocol": "https",
+							"host": [
+								"swapi",
+								"dev"
+							],
+							"path": [
+								"api",
+								"planets",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "swapi.dev_request_2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://swapi.dev/api/people/1"
+					},
+					"response": []
+				},
+				{
+					"name": "swapi.dev_request_3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://swapi.dev/api/films/3"
+					},
+					"response": []
+				},
+				{
+					"name": "swapi.dev_request_4",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://swapi.dev/api/starships/5/"
+					},
+					"response": []
+				},
+				{
+					"name": "swapi.dev_request_5",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://swapi.dev/api/vehicles/4/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "app.swaggerhub.com",
+			"item": [
+				{
+					"name": "app.swaggerhub.com_request_1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "https://{{baseUrl}}/sepulsa/RentABook-API/1.0.0/client/{{id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "app.swaggerhub.com_request_2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client_id\": 1234,\r\n  \"client_key\": \"CLIENT01\",\r\n  \"client_secret\": \"SECRET01\",\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{baseUrl}}/sepulsa/RentABook-API/1.0.0/client"
+					},
+					"response": []
+				},
+				{
+					"name": "app.swaggerhub.com_request_2 Copy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"client_id\": 1234,\r\n  \"client_key\": \"CLIENT01\",\r\n  \"client_secret\": \"SECRET01\",\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://{{baseUrl}}/sepulsa/RentABook-API/1.0.0/client/1"
+					},
+					"response": []
+				},
+				{
+					"name": "app.swaggerhub.com_request_2 Copy 2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "https://{{baseUrl}}/sepulsa/RentABook-API/1.0.0/client/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
