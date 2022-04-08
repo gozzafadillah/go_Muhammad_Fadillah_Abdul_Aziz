@@ -18,6 +18,11 @@ var users []User
 
 // Controller
 func GetUsersController(e echo.Context) error {
+	if len(users) == 0 {
+		return e.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "Data empty",
+		})
+	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success get all users",
 		"users":   users,
@@ -33,6 +38,11 @@ func GetUserController(e echo.Context) error {
 			user = append(user, users[i])
 		}
 	}
+	if len(user) == 0 {
+		return e.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "User not found",
+		})
+	}
 
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success get user",
@@ -42,14 +52,21 @@ func GetUserController(e echo.Context) error {
 
 func DeleteUserController(e echo.Context) error {
 	id, _ := strconv.Atoi(e.Param("id"))
-	for i := 0; i <= len(users)-1; i++ {
+	dataDihapus := User{}
+	for i := 0; i < len(users)-1; i++ {
 		if id == users[i].Id {
+			dataDihapus = User{
+				Id:       users[i].Id,
+				Name:     users[i].Name,
+				Email:    users[i].Email,
+				Password: users[i].Password,
+			}
 			users = append(users[:i], users[i+1:]...)
 		}
 	}
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Delete User",
-		"users":   users,
+		"users":   dataDihapus,
 	})
 
 }
@@ -61,18 +78,22 @@ func UpdateUserController(c echo.Context) error {
 
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	for i := 0; i <= len(users)-1; i++ {
+	for i := 0; i < len(users)-1; i++ {
 		if id == users[i].Id {
-			users[i].Name = user.Name
-			users[i].Password = user.Password
 			users[i].Id = user.Id
+			users[i].Name = user.Name
 			users[i].Email = user.Email
+			users[i].Password = user.Password
+		} else {
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"message": "User not found",
+			})
 		}
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Edit User",
-		"users":   users[id],
+		"users":   user,
 	})
 }
 
@@ -101,10 +122,10 @@ func main() {
 
 	// route
 	e.GET("/users", GetUsersController)
-	e.GET("/user/:id", GetUserController)
-	e.DELETE("/user/:id", DeleteUserController)
+	e.GET("/users/:id", GetUserController)
+	e.DELETE("/users/:id", DeleteUserController)
 	e.POST("/users", CreateUserController)
-	e.PUT("/user/:id", UpdateUserController)
+	e.PUT("/users/:id", UpdateUserController)
 
 	e.Start(":8080")
 }
