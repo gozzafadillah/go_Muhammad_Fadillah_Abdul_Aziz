@@ -7,7 +7,7 @@ type Kendaraan struct {
 
 // Sub struct
 type Mobil struct {
-	kendaraan
+	Kendaraan
 }
 
 // Mobil Start
