@@ -77,7 +77,9 @@ func DeleteBookController(c echo.Context) error {
 	err := DeleteBook(getId)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "Failed delete book",
+		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Delete Book",
@@ -97,7 +99,7 @@ func UpdateBookController(c echo.Context) error {
 	err := UpdateBook(getId, book)
 
 	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": "Failed update data",
 		})
 	}

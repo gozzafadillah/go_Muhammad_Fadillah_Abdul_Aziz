@@ -51,82 +51,131 @@ type TestCase struct {
 */
 
 func TestLoginUser(t *testing.T) {
-	testcase := TestCase{
+	defer func() {
+		successTest := TestCase{
 
-		Method:         http.MethodPost,
-		Name:           "Login User",
-		Path:           "/login",
-		ExpectStatus:   http.StatusOK,
-		ExpectResponse: "Success login",
-	}
+			Method:         http.MethodPost,
+			Name:           "Login User",
+			Path:           "/login",
+			ExpectStatus:   http.StatusOK,
+			ExpectResponse: "Success login",
+		}
 
-	e := InitEchoTestAPI()
-	InsertData()
-	reqStr := `{
-		"id": 1,
-		"name": "Alta",
-		"email": "alta@gmail.com",
-		"password": "123"
-	}`
+		e := InitEchoTestAPI()
+		InsertData()
+		reqStr := `{
+			"id": 1,
+			"name": "Alta",
+			"email": "alta@gmail.com",
+			"password": "123"
+		}`
 
-	req := httptest.NewRequest(testcase.Method, testcase.Path, strings.NewReader(reqStr))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	rec := httptest.NewRecorder()
-	c := e.NewContext(req, rec)
+		req := httptest.NewRequest(successTest.Method, successTest.Path, strings.NewReader(reqStr))
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
 
-	c.SetPath(testcase.Path)
-	if assert.NoError(t, controller.LoginUserController(c)) {
-		assert.Equal(t, testcase.ExpectStatus, rec.Code)
-		assert.Contains(t, rec.Body.String(), testcase.ExpectResponse)
+		c.SetPath(successTest.Path)
+		if assert.NoError(t, controller.LoginUserController(c)) {
+			assert.Equal(t, successTest.ExpectStatus, rec.Code)
+			assert.Contains(t, rec.Body.String(), successTest.ExpectResponse)
 
-	}
+		}
+	}()
+
 }
 
 func TestGetUsers(t *testing.T) {
 
-	testcases := []TestCase{
-		{
+	defer func() {
+		successTest := TestCase{
+
 			Method:         http.MethodGet,
 			Name:           "Get All Users",
 			Path:           "/Users",
 			ExpectStatus:   http.StatusOK,
-			ExpectResponse: "users",
-		},
-	}
+			ExpectResponse: "Success get all users",
+		}
 
-	e := InitEchoTestAPI()
-	InsertData()
+		e := InitEchoTestAPI()
+		InsertData()
 
-	for _, testcase := range testcases {
-		req := httptest.NewRequest(testcase.Method, testcase.Path, nil)
+		req := httptest.NewRequest(successTest.Method, successTest.Path, nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
-		c.SetPath(testcase.Path)
+		c.SetPath(successTest.Path)
 		if assert.NoError(t, controller.GetUsersController(c)) {
-			assert.Equal(t, testcase.ExpectStatus, rec.Code)
-			assert.Contains(t, rec.Body.String(), testcase.ExpectResponse)
+			assert.Equal(t, successTest.ExpectStatus, rec.Code)
+			assert.Contains(t, rec.Body.String(), successTest.ExpectResponse)
 		}
+	}()
+	failTest := TestCase{
 
+		Method:         http.MethodGet,
+		Name:           "Fail Get All Users",
+		Path:           "/Users",
+		ExpectStatus:   http.StatusBadRequest,
+		ExpectResponse: "Database empty",
 	}
+
+	e := InitEchoTestAPI()
+
+	req := httptest.NewRequest(failTest.Method, failTest.Path, nil)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+
+	c.SetPath(failTest.Path)
+	if assert.NoError(t, controller.GetUsersController(c)) {
+		assert.Equal(t, failTest.ExpectStatus, rec.Code)
+		assert.Contains(t, rec.Body.String(), failTest.ExpectResponse)
+	}
+
 }
 
 func TestGetUser(t *testing.T) {
 
-	testcase := TestCase{
+	defer func() {
+		successTest := TestCase{
+
+			Method:         http.MethodGet,
+			Name:           "Get User",
+			Path:           "/",
+			ExpectStatus:   http.StatusOK,
+			ExpectResponse: "Success get user",
+		}
+
+		e := InitEchoTestAPI()
+		InsertData()
+		token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
+
+		req := httptest.NewRequest(successTest.Method, successTest.Path, nil)
+		req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+		rec := httptest.NewRecorder()
+
+		c := e.NewContext(req, rec)
+		c.SetPath("/users/:id")
+		c.SetParamNames("id")
+		c.SetParamValues("1")
+
+		c.SetPath(successTest.Path)
+		if assert.NoError(t, controller.GetUserController(c)) {
+			assert.Equal(t, successTest.ExpectStatus, rec.Code)
+			assert.Contains(t, rec.Body.String(), successTest.ExpectResponse)
+		}
+	}()
+	failedTest := TestCase{
 
 		Method:         http.MethodGet,
-		Name:           "Get User",
+		Name:           "Fail Get User",
 		Path:           "/",
-		ExpectStatus:   http.StatusOK,
-		ExpectResponse: "Success get user",
+		ExpectStatus:   http.StatusBadRequest,
+		ExpectResponse: "User not found",
 	}
-
 	e := InitEchoTestAPI()
-	InsertData()
 	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 
-	req := httptest.NewRequest(testcase.Method, testcase.Path, nil)
+	req := httptest.NewRequest(failedTest.Method, failedTest.Path, nil)
 	req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
 	rec := httptest.NewRecorder()
 
@@ -135,10 +184,10 @@ func TestGetUser(t *testing.T) {
 	c.SetParamNames("id")
 	c.SetParamValues("1")
 
-	c.SetPath(testcase.Path)
+	c.SetPath(failedTest.Path)
 	if assert.NoError(t, controller.GetUserController(c)) {
-		assert.Equal(t, testcase.ExpectStatus, rec.Code)
-		assert.Contains(t, rec.Body.String(), testcase.ExpectResponse)
+		assert.Equal(t, failedTest.ExpectStatus, rec.Code)
+		assert.Contains(t, rec.Body.String(), failedTest.ExpectResponse)
 	}
 
 }
@@ -175,27 +224,64 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	testcase := TestCase{
+	defer func() {
+		successTest := TestCase{
+
+			Method:         http.MethodPut,
+			Name:           "Update user",
+			Path:           "/",
+			ExpectStatus:   http.StatusOK,
+			ExpectResponse: "Success Edit User",
+		}
+
+		e := InitEchoTestAPI()
+		InsertData()
+
+		reqStr := `{
+			"id":       1,
+			"name":     "Alterra",
+			"password": "123",
+			"email":    "alta@gmail.com"
+			}`
+		token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
+
+		req := httptest.NewRequest(successTest.Method, successTest.Path, strings.NewReader(reqStr))
+		req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+		c.SetPath("/users/:id")
+		c.SetParamNames("id")
+		c.SetParamValues("1")
+
+		c.SetPath(successTest.Path)
+		if assert.NoError(t, controller.UpdateUserController(c)) {
+			assert.Equal(t, successTest.ExpectStatus, rec.Code)
+			assert.Contains(t, rec.Body.String(), successTest.ExpectResponse)
+		}
+	}()
+
+	failedTest := TestCase{
 
 		Method:         http.MethodPut,
 		Name:           "Update user",
 		Path:           "/",
-		ExpectStatus:   http.StatusOK,
-		ExpectResponse: "Success Edit User",
+		ExpectStatus:   http.StatusBadRequest,
+		ExpectResponse: "Bad Request",
 	}
 
 	e := InitEchoTestAPI()
 	InsertData()
 
 	reqStr := `{
-		"id":       1,
+		"id":       2,
 		"name":     "Alterra",
 		"password": "123",
 		"email":    "alta@gmail.com"
 		}`
 	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 
-	req := httptest.NewRequest(testcase.Method, testcase.Path, strings.NewReader(reqStr))
+	req := httptest.NewRequest(failedTest.Method, failedTest.Path, strings.NewReader(reqStr))
 	req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
@@ -204,29 +290,58 @@ func TestUpdateUser(t *testing.T) {
 	c.SetParamNames("id")
 	c.SetParamValues("1")
 
-	c.SetPath(testcase.Path)
+	c.SetPath(failedTest.Path)
 	if assert.NoError(t, controller.UpdateUserController(c)) {
-		assert.Equal(t, testcase.ExpectStatus, rec.Code)
-		assert.Contains(t, rec.Body.String(), testcase.ExpectResponse)
+		assert.Equal(t, failedTest.ExpectStatus, rec.Code)
+		assert.Contains(t, rec.Body.String(), failedTest.ExpectResponse)
 	}
 
 }
 
 func TestDeleteUser(t *testing.T) {
-	testcase := TestCase{
+	// token
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
+
+	defer func() {
+		successTest := TestCase{
+
+			Method:         http.MethodDelete,
+			Name:           "Delete User",
+			Path:           "/",
+			ExpectStatus:   http.StatusOK,
+			ExpectResponse: "Success Delete User",
+		}
+
+		e := InitEchoTestAPI()
+		InsertData()
+
+		req := httptest.NewRequest(successTest.Method, successTest.Path, nil)
+		req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+		rec := httptest.NewRecorder()
+
+		c := e.NewContext(req, rec)
+		c.SetPath("/users/:id")
+		c.SetParamNames("id")
+		c.SetParamValues("1")
+
+		c.SetPath(successTest.Path)
+		if assert.NoError(t, controller.DeleteUserController(c)) {
+			assert.Equal(t, successTest.ExpectStatus, rec.Code)
+			assert.Contains(t, rec.Body.String(), successTest.ExpectResponse)
+		}
+	}()
+	failedTest := TestCase{
 
 		Method:         http.MethodDelete,
-		Name:           "Delete User",
+		Name:           "Failed delete User",
 		Path:           "/",
-		ExpectStatus:   http.StatusOK,
-		ExpectResponse: "Success Delete User",
+		ExpectStatus:   http.StatusBadRequest,
+		ExpectResponse: "Failed Delete",
 	}
 
 	e := InitEchoTestAPI()
-	InsertData()
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 
-	req := httptest.NewRequest(testcase.Method, testcase.Path, nil)
+	req := httptest.NewRequest(failedTest.Method, failedTest.Path, nil)
 	req.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
 	rec := httptest.NewRecorder()
 
@@ -235,10 +350,10 @@ func TestDeleteUser(t *testing.T) {
 	c.SetParamNames("id")
 	c.SetParamValues("1")
 
-	c.SetPath(testcase.Path)
+	c.SetPath(failedTest.Path)
 	if assert.NoError(t, controller.DeleteUserController(c)) {
-		assert.Equal(t, testcase.ExpectStatus, rec.Code)
-		assert.Contains(t, rec.Body.String(), testcase.ExpectResponse)
+		assert.Equal(t, failedTest.ExpectStatus, rec.Code)
+		assert.Contains(t, rec.Body.String(), failedTest.ExpectResponse)
 	}
 }
 

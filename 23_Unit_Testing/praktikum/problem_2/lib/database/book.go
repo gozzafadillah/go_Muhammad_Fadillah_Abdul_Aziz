@@ -26,7 +26,9 @@ func CreateBook(data models.Book) error {
 
 func UpdateBook(id int, data models.Book) error {
 	queryData := config.DB.Model(&data).Where("id = ?", id).Updates(map[string]interface{}{"id": id, "title": data.Title, "author": data.Author, "publisher": data.Publisher})
-
+	if queryData.RowsAffected == 0 {
+		return errors.New("book not found")
+	}
 	return queryData.Error
 }
 

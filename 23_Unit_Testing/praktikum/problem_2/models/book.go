@@ -9,3 +9,7 @@ type Book struct {
 	Author    string `json:"author" form:"author"`
 	Publisher string `json:"publisher" form:"publisher"`
 }
+
+func (Book) Error() string {
+	panic("unimplemented")
+}

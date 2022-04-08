@@ -83,7 +83,7 @@ func DeleteUserController(c echo.Context) error {
 	err := DeleteUser(getId)
 
 	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": "Failed Delete",
 		})
 	}
