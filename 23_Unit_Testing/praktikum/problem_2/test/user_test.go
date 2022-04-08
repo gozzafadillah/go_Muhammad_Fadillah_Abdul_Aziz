@@ -66,7 +66,7 @@ func TestLoginUser(t *testing.T) {
 		"id": 1,
 		"name": "Alta",
 		"email": "alta@gmail.com",
-		"password": "123",
+		"password": "123"
 	}`
 
 	req := httptest.NewRequest(testcase.Method, testcase.Path, strings.NewReader(reqStr))
@@ -158,7 +158,7 @@ func TestCreateUser(t *testing.T) {
 		"id": 2,
 		"name":     "Alta",
 		"password": "123",
-		"email":    "alta@gmail.com",
+		"email":    "alta@gmail.com"
 		}`
 	// token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 	req := httptest.NewRequest(testcase.Method, testcase.Path, strings.NewReader(reqStr))
@@ -191,7 +191,7 @@ func TestUpdateUser(t *testing.T) {
 		"id":       1,
 		"name":     "Alterra",
 		"password": "123",
-		"email":    "alta@gmail.com",
+		"email":    "alta@gmail.com"
 		}`
 	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 

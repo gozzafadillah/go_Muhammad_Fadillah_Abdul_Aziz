@@ -60,7 +60,7 @@ github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_con
 github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:107.2,110.4 1 1
 github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:101.16,105.3 1 0
 github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:113.48,119.16 4 1
-github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:126.2,127.16 2 0
-github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:134.2,139.4 2 0
-github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:119.16,124.3 1 1
+github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:126.2,127.16 2 1
+github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:134.2,139.4 2 1
+github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:119.16,124.3 1 0
 github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/controller/user_controller.go:127.16,132.3 1 0

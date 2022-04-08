@@ -114,7 +114,7 @@ func TestCreateBook(t *testing.T) {
 		"ID":        2,
 		"title":     "Laskar Pelangi 2",
 		"author":    "Giring",
-		"publisher": "Mizan",
+		"publisher": "Mizan"
 		}`
 	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 
@@ -149,7 +149,7 @@ func TestUpdateBook(t *testing.T) {
 		"ID":        1,
 		"title":     "Laskar Pelangi 3",
 		"author":    "Giring",
-		"publisher": "Mizan",
+		"publisher": "Mizan"
 		}`
 	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWx0YSIsInVzZXJJZCI6MX0.wmnj3egcsfjvyPQ1QZFL4wZIluhMDQoADsz85Sx18cQ"
 
