@@ -1,7 +1,10 @@
 #!/bin/sh
 days=$(date)
+echo "Nama : "
 	read nama
+echo "FB : "
 	read fb
+echo "Linkedin : "
 	read linkedin
 nameDir="${nama} ${days}"
 pingGoogle="$(ping -c 3 google.com)"
