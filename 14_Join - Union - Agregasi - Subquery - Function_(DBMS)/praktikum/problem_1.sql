@@ -144,12 +144,12 @@ INSERT INTO transaction_detail VALUES (
 
 -- 2. Select
 -- a. Tampilkan nama user dengan gender Laki-laki (L)
-SELECT nama FROM users WHERE gender = "L";
+SELECT name FROM users WHERE gender = "L";
 -- b. Tampilkan Product id = 3
 SELECT * FROM product WHERE id = 3;
 -- c. Tampilkan data pelanggan yang memiliki nama mengandung a dan crated_at 7 hari kebelakang
 SELECT * FROM users WHERE 
-NOW() > created_at AND nama LIKE '%a%';
+NOW() > created_at AND name LIKE '%a%';
 -- d. Hitung jumlah gender perempuan
  SELECT COUNT(*) FROM users WHERE gender = "P";
 --  e. Tampilkan 5 data pada product
@@ -162,19 +162,19 @@ UPDATE product SET name = "product dummy" WHERE id = 1;
 -- b. ubah data pada id = 1 dengan qty = 3
 UPDATE transaction_detail SET qty = 3 WHERE product_id = 1;
 
-
 -- 4. Delete
 -- a. Delete pada table product id = 1
 DELETE FROM product WHERE id = 1;
 -- b. Delete pada table product dengan product type = 1
-DELETE FROM product WHERE product_type = 1;
+DELETE FROM product WHERE product_type_id = 1;
+
+
 
 -- JOIN, UNION, Sub-Query, and  Function
 -- 1. Gabungkan data transaksi dari user id 1 dan user id 2
 SELECT * FROM transaction WHERE user_id = 1 
 UNION 
 SELECT * FROM transaction WHERE user_id = 2;
-
 -- 2. Tampilkan Jumlah harga transaksi user id 1
 SELECT sum(total_price) as `Total harga user id = 1` FROM transaction WHERE user_id = 1;
 
@@ -206,6 +206,7 @@ BEGIN
 DELETE FROM transaction_detail WHERE transaction_id = old.id;
 END $$
 DELIMITER ;
+
 -- 7. buat function setelah data transaksi detail dihapus maka data total_qty terupdate berdasarkan qty data transaction id yang dihapus
 DELIMITER $$
 CREATE TRIGGER qtyDataTransaction
@@ -214,7 +215,7 @@ BEGIN
 UPDATE transaction SET total_qty = total_qty - old.qty
 WHERE id = old.transaction_id;
 END $$
-DELIMITER;
+DELIMITER ;
 -- 8. tampilkan data product yang tidak pernah ada ditable transaction_detail dengan sub-query
 SELECT *
 FROM product
