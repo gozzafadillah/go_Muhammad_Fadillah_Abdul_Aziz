@@ -83,6 +83,34 @@ func TestLoginUser(t *testing.T) {
 		}
 	}()
 
+	failedTest := TestCase{
+
+		Method:         http.MethodPost,
+		Name:           "Login User",
+		Path:           "/login",
+		ExpectStatus:   http.StatusUnauthorized,
+		ExpectResponse: "Fail login",
+	}
+
+	e := InitEchoTestAPI()
+	InsertData()
+	reqStr := `{
+		"email": "altaa@gmail.com",
+		"password": "123"
+	}`
+
+	req := httptest.NewRequest(failedTest.Method, failedTest.Path, strings.NewReader(reqStr))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+
+	c.SetPath(failedTest.Path)
+	if assert.NoError(t, controller.LoginUserController(c)) {
+		assert.Equal(t, failedTest.ExpectStatus, rec.Code)
+		assert.Contains(t, rec.Body.String(), failedTest.ExpectResponse)
+
+	}
+
 }
 
 func TestGetUsers(t *testing.T) {

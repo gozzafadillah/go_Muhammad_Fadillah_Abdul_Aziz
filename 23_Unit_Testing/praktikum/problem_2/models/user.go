@@ -10,11 +10,6 @@ type User struct {
 	Password string `json:"password" form:"password"`
 }
 
-// Error implements error
-func (User) Error() string {
-	panic("unimplemented")
-}
-
 type UserResponse struct {
 	ID    int    `gorm:"primaryKey"`
 	Name  string `json:"name" form:"name"`

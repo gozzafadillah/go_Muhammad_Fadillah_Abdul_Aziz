@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/config"
 	"github.com/gozzafadillah/23_Unit_Testing/praktikum/problem_2/models"
@@ -42,7 +43,15 @@ func DeleteUser(id int) error {
 }
 
 func LoginUser(data models.User) error {
-	queryData := config.DB.Where("email = ? AND password = ?", data.Email, data.Password).First(&data).Error
+	var temp int64
+	fmt.Println(data)
+	queryData := config.DB.Model(&data).Where("email = ? AND password = ?", data.Email, data.Password).Count(&temp)
 
-	return queryData
+	fmt.Println(temp)
+
+	if temp == 0 {
+		return errors.New("not found")
+	}
+
+	return queryData.Error
 }

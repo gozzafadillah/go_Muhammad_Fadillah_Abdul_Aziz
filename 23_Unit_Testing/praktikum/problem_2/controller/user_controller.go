@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -115,23 +116,27 @@ func LoginUserController(c echo.Context) error {
 	c.Bind(&user)
 
 	err := database.LoginUser(user)
-
+	fmt.Println(err)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
 			"message": "Fail login",
-			"error":   err.Error,
+			"error":   err.Error(),
 		})
 	}
 
 	token, err := middlewares.CreateToken(user.ID, user.Name)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
 			"message": "Fail login",
 			"error":   err.Error,
 		})
 	}
 
-	userResponse := models.UserResponse{user.ID, user.Name, user.Email, token}
+	userResponse := models.UserResponse{
+		ID:    user.ID,
+		Name:  user.Name,
+		Email: user.Email,
+		Token: token}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success login",
