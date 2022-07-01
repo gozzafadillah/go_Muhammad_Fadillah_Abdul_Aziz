@@ -29,6 +29,6 @@ func (ur UsersRepo) GetAllUser() []domain_users.Users {
 
 // Store implements domain_users.Repository
 func (ur UsersRepo) Store(domain domain_users.Users) (domain_users.Users, error) {
-	err := ur.DB.Save(domain).Error
+	err := ur.DB.Create(&domain).Error
 	return domain, err
 }

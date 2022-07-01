@@ -1,25 +1,29 @@
 package main
 
 import (
-	"github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/belajar-go-echo/config"
-	"github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/belajar-go-echo/controller"
-
+	"github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/app/config"
+	"github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/app/routes"
+	business_users "github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/businesses/users"
+	controller_users "github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/controllers/users"
+	migrate "github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/migrator"
+	mysql_users "github.com/gozzafadillah/24_Clean_and_Hexagonal_Architecture/praktikum/repository/mysql/users"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
-	db, err := config.ConnectDB()
-	if err != nil {
-		panic(err)
+	db := config.InitDB()
+
+	migrate.AutoMigrate(db)
+
+	e := echo.New()
+	userRepo := mysql_users.NewUsersRepo(db)
+	userBusiness := business_users.NewUsersBusiness(userRepo)
+	userController := controller_users.NewUsersController(userBusiness)
+
+	routeList := routes.RouteList{
+		UserBus: userController,
 	}
 
-	err = config.MigrateDB(db)
-	if err != nil {
-		panic(err)
-	}
-
-	app := echo.New()
-	app.GET("/users", controller.GetAllUsers(db))
-	app.POST("/users", controller.CreateUser(db))
-	app.Start(":8080")
+	routeList.NewRouteList(e)
+	e.Logger.Fatal(e.Start(":8080"))
 }
