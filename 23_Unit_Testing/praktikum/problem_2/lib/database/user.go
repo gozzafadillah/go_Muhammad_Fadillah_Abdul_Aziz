@@ -42,16 +42,18 @@ func DeleteUser(id int) error {
 	return queryData.Error
 }
 
-func LoginUser(data models.User) error {
+func LoginUser(data models.User) (models.User, error) {
 	var temp int64
+	var user models.User
 	fmt.Println(data)
-	queryData := config.DB.Model(&data).Where("email = ? AND password = ?", data.Email, data.Password).Count(&temp)
+	queryData := config.DB.Model(&data).Where("email = ? AND password = ?", data.Email, data.Password).First(&user).Count(&temp)
 
 	fmt.Println(temp)
+	fmt.Println(user)
 
 	if temp == 0 {
-		return errors.New("not found")
+		return models.User{}, errors.New("not found")
 	}
 
-	return queryData.Error
+	return user, queryData.Error
 }

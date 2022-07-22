@@ -112,10 +112,10 @@ func UpdateUserController(c echo.Context) error {
 }
 
 func LoginUserController(c echo.Context) error {
-	user := models.User{}
-	c.Bind(&user)
+	temp := models.User{}
+	c.Bind(&temp)
 
-	err := database.LoginUser(user)
+	user, err := database.LoginUser(temp)
 	fmt.Println(err)
 	if err != nil {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
@@ -126,7 +126,7 @@ func LoginUserController(c echo.Context) error {
 
 	token, err := middlewares.CreateToken(user.ID, user.Name)
 	if err != nil {
-		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": "Fail login",
 			"error":   err.Error,
 		})
